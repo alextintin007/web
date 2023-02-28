@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LibroService } from '../../services/libro.service';
 import { Libro } from '../../models/libro';
 import { Global } from '../../services/global';
+
 @Component({
   selector: 'app-libros',
   templateUrl: './libros.component.html',

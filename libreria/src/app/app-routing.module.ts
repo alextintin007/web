@@ -15,8 +15,8 @@ const routes: Routes = [
   {path:'contacto',component:ContactoComponent},
   {path:'libro/:id',component:DetallelibroComponent},
   {path:'editar-libro/:id',component:EditarlibroComponent},
+  {path:'login',component:LoginComponent},
   {path:'**',component:HomeComponent},
-  {path:'login',component:LoginComponent}
 ];
 
 @NgModule({

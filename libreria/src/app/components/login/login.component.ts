@@ -1,14 +1,24 @@
 import { Component } from '@angular/core';
+import { Global } from 'app/services/global';
+import { LoginService } from 'app/services/login.service';
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers:[LoginService]
 })
 export class LoginComponent {
-  username: string | undefined;
-  password: string | undefined;
+  public url:string;
+  username: string;
+  password: string;
+
+  constructor(private _loginService: LoginService) { 
+    this.url=Global.url;
+    this.username = "";
+    this.password = "";
+  }
 
   async onSubmit(){
     const url = "http://localhost:3600/login";
@@ -20,10 +30,13 @@ export class LoginComponent {
       }
     }
 
-    const data = await fetch(url, config)
+    // const data = await fetch(url, config)
     
-    const { username, password} = await data.json as any
+    // const { username, password} = await data.json as any
 
-    console.log(username)
+    const data = this._loginService.login(this.username, this.password)
+
+    //Renderizar un componente o redirigir si es valido
+    console.log(data)
   }
 }

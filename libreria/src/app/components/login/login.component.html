@@ -7,5 +7,5 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" [(ngModel)]="password">
     </div>
-    <button type="submit">Login</button>
+    <button type="submit" (click)="onSubmit()" >Login</button>
 </form>
