@@ -7,36 +7,43 @@ import { LoginService } from 'app/services/login.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers:[LoginService]
+  providers: [LoginService]
 })
 export class LoginComponent {
-  public url:string;
+  public url: string;
   username: string;
   password: string;
+  isAuth: boolean;
 
-  constructor(private _loginService: LoginService) { 
-    this.url=Global.url;
+  constructor(private _loginService: LoginService) {
+    this.url = Global.url;
     this.username = "";
     this.password = "";
+    this.isAuth = false;
   }
 
-  async onSubmit(){
-    const url = "http://localhost:3600/login";
-    const config: any = {
-      method: "POST",
-      body: {
-        user: this.username ,
-        password: this.password
-      }
+  async onSubmit() {
+    if (this.isAuth) {
+      alert("El usuario ya se encuentra logeado")
+      return
     }
+    const data = this._loginService.login(this.username, this.password).subscribe(
+      data => {
+        const { user } = data
+        if (!user) {
+          alert("Credenciales inválidas")
+          return
+        }
 
-    // const data = await fetch(url, config)
-    
-    // const { username, password} = await data.json as any
-
-    const data = this._loginService.login(this.username, this.password)
-
-    //Renderizar un componente o redirigir si es valido
-    console.log(data)
+        this.isAuth = true;
+        alert(`Usuario autenticado! Bienvenido ${user}`)
+      }
+    )
   }
+
+  logout() {
+    this.isAuth = false;
+    alert("Sesión Cerrada")
+  }
+
 }

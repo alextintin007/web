@@ -1,6 +1,6 @@
 'use strict'
 var mongoose=require('mongoose');
-var port='3600';
+var port='3601';
 mongoose.promise=global.Promise;
 mongoose.set("strictQuery",false);
 var app=require('./app');
